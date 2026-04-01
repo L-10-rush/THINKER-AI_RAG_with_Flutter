@@ -7,18 +7,31 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Row(
         children: [
           SideBar(),
-          Column(
-            children: [
-              Expanded(
-                child: SearchSection()
-              ),
-
-              //footer
-            ],
+          Expanded(
+            child: Column(
+              children: [
+                Expanded(
+                  child: SearchSection()
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Wrap(
+                    spacing: 16,
+                    runSpacing: 8,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      Text('© 2026 Your Company. All rights reserved.'),
+                      Text('Privacy Policy'),
+                      Text('Terms of Service'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),
