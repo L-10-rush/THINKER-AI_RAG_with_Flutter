@@ -21,14 +21,16 @@ llm_service  = LLMService()
 async def websocket_chat_endpoint(websocket: WebSocket):
     await websocket.accept()
     try:
+        await asyncio.sleep(0.1)
         data  = await websocket.receive_json()
-        # print(data)
+        print(data)
         query = data.get("query")
-        # print(query)
+        print(query)
         search_results = search_service.web_search(query)
-        # print(search_results)
+        print(search_results)
         sorted_results =  sort_source_service.sort_sources(querry=query, search_results=search_results)
         
+        await asyncio.sleep(0.1)
         await websocket.send_json({
             'type': 'search_result',
             'data': sorted_results
@@ -39,6 +41,7 @@ async def websocket_chat_endpoint(websocket: WebSocket):
             await websocket.send_json({
                 'type': 'content', 'data': chunk
             })
+            print(chunk)
     except Exception as e:
         print(e)
         print("Unexpected error occurred at websocket")
